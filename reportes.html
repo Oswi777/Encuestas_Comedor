@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Reportes · Encuesta Comedor</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" href="css/reportes.css">
+</head>
+<body>
+  <header>
+    <img src="/Comedor_Encuestas/assets/BorgWarner_Logo_Technology_Blue.png" alt="BorgWarner" />
+    <div>
+      <h1>Reportes · Encuesta Comedor</h1>
+      <div class="sub">Vista profesional para validación interna</div>
+    </div>
+  </header>
+
+  <section class="toolbar">
+    <div class="row">
+      <div class="inp">
+        <label>API URL</label>
+        <input id="api" value="http://localhost:8000">
+      </div>
+      <div class="inp">
+        <label>Desde</label>
+        <input id="desde" type="date">
+      </div>
+      <div class="inp">
+        <label>Hasta</label>
+        <input id="hasta" type="date">
+      </div>
+      <div class="inp">
+        <label>Dispositivo</label>
+        <input id="fDispositivo" placeholder="ej. tablet-comedor-01">
+      </div>
+      <div class="inp">
+        <label>Buscar (calificación o motivo)</label>
+        <input id="fTexto" placeholder="ej. Sabor, Regular...">
+      </div>
+    </div>
+    <div class="row">
+      <button id="btnCargar">Cargar / Actualizar</button>
+      <button id="btnCSV">Exportar CSV</button>
+      <label class="chip"><input id="auto" type="checkbox" style="accent-color:#00a0df;margin-right:6px"> Auto-refresh (10s)</label>
+      <span id="estado" class="muted">Listo</span>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <div class="kpis">
+        <div class="kpi"><h3>Total respuestas</h3><div class="val" id="kpiTotal">0</div><div class="hint" id="kpiRango"></div></div>
+        <div class="kpi ok"><h3>% Satisfechos (Exc+Bueno)</h3><div class="val" id="kpiSat">0%</div></div>
+        <div class="kpi bad"><h3>% No satisfechos (Reg+Malo)</h3><div class="val" id="kpiNoSat">0%</div></div>
+        <div class="kpi"><h3>Motivo más frecuente</h3><div class="val" id="kpiMotivo">—</div></div>
+      </div>
+      <div class="charts">
+        <div class="card">
+          <h3>Respuestas por calificación</h3>
+          <div class="chart-box"><canvas id="chartRatings"></canvas></div>
+        </div>
+        <div class="card">
+          <h3>Distribución por día (apilada)</h3>
+          <div class="chart-box"><canvas id="chartDaily"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Últimas respuestas</h3>
+      <div class="tbl-tools">
+        <div class="muted">Mostrando <span id="lblRangoTabla">0–0</span> de <span id="lblTotalTabla">0</span></div>
+        <div class="pagination">
+          <button id="prev">« Prev</button>
+          <span class="muted" id="lblPagina">Página 1</span>
+          <button id="next">Next »</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table id="tabla">
+          <thead>
+            <tr><th>Fecha (UTC)</th><th>Calificación</th><th>Motivo</th><th>Dispositivo</th><th>Sede</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vendor -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+  <!-- Config -->
+  <script src="js/config.js"></script>
+
+  <!-- App -->
+  <script type="module" src="js/reportes.js"></script>
+</body>
+</html>
